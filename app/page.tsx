@@ -1,103 +1,44 @@
-import Link from 'next/link'
 import Header from '@/components/Header'
-import RamenCard from '@/components/RamenCard'
-import { prisma } from '@/lib/prisma'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
-async function getRamens() {
-  try {
-    const ramens = await prisma.ramen.findMany({
-      include: {
-        tags: {
-          include: {
-            tag: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
-    return ramens
-  } catch (error) {
-    console.error('Failed to fetch ramens:', error)
-    return []
-  }
-}
-
-export default async function HomePage() {
-  const ramens = await getRamens()
-  const recentRamens = ramens.slice(0, 6)
-
+export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative h-48 sm:h-64 md:h-80 bg-gradient-to-r from-red-100 to-orange-100 overflow-hidden flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-4">
-            🍜 RAMEN BLOG
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600">
-            오사카 라멘 맛집 기록
-          </p>
-        </div>
-      </section>
-
-      {/* Recent Posts Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 tracking-wide">
-          RECENT RAMENS
-        </h2>
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 tracking-wide">
+          ABOUT
+        </h1>
         
-        {recentRamens.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">아직 라멘 기록이 없습니다.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {recentRamens.map((ramen) => (
-              <RamenCard key={ramen.id} ramen={ramen} />
-            ))}
-          </div>
-        )}
+        <div className="bg-white p-6 sm:p-8 border border-gray-200">
+          <div className="prose prose-gray max-w-none">
+            <p className="text-gray-700 leading-relaxed mb-6">
+              오사카에서 생활하면서 방문한 라멘, 우동, 소바 가게들을 기록하는 개인 블로그입니다.
+            </p>
+            
+            <h2 className="text-2xl font-bold mt-8 mb-4">블로그 목적</h2>
+            <ul className="space-y-2 text-gray-700">
+              <li>• 방문한 가게 기록</li>
+              <li>• 맛과 분위기에 대한 솔직한 후기</li>
+              <li>• 개인적인 맛집 데이터베이스 구축</li>
+            </ul>
 
-        {ramens.length > 6 && (
-          <div className="text-center mt-10 sm:mt-12">
-            <Link
-              href="/blog"
-              className="inline-block bg-black text-white px-8 sm:px-10 py-2.5 sm:py-3 hover:bg-gray-800 transition-colors duration-300 font-semibold tracking-wide text-sm sm:text-base"
-            >
-              All Posts
-            </Link>
-          </div>
-        )}
-      </section>
+            <h2 className="text-2xl font-bold mt-8 mb-4">평가 기준</h2>
+            <ul className="space-y-2 text-gray-700">
+              <li>• 국물/육수의 깊이와 풍미</li>
+              <li>• 면의 식감과 조리도</li>
+              <li>• 토핑의 품질</li>
+              <li>• 전체적인 균형과 완성도</li>
+              <li>• 가성비</li>
+            </ul>
 
-      {/* About Section */}
-      <section className="bg-white py-12 sm:py-16 mt-12 sm:mt-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h3 className="text-xl sm:text-2xl font-bold mb-4">ABOUT</h3>
-          <div className="w-16 h-1 bg-black mb-6 mx-auto"></div>
-          <p className="text-gray-600 leading-relaxed mb-6 max-w-xl mx-auto text-sm sm:text-base">
-            오사카에서 먹은 라멘들을 기록하는 블로그입니다.
-            개인적으로 방문한 라멘 가게들의 솔직한 후기를 담고 있습니다.
-          </p>
-          
-          <a 
-            href="https://github.com/hellowin6076" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-gray-700 hover:text-black transition"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-            <span className="text-sm sm:text-base">GitHub</span>
-          </a>
+            <h2 className="text-2xl font-bold mt-8 mb-4">Contact</h2>
+            <p className="text-gray-700">
+              GitHub: <a href="https://github.com/hellowin6076" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                @hellowin6076
+              </a>
+            </p>
+          </div>
         </div>
       </section>
     </div>

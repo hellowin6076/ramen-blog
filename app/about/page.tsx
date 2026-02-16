@@ -13,19 +13,19 @@ export default function AboutPage() {
         <div className="bg-white p-6 sm:p-8 border border-gray-200">
           <div className="prose prose-gray max-w-none">
             <p className="text-gray-700 leading-relaxed mb-6">
-              오사카에서 생활하면서 방문한 라멘 가게들을 기록하는 개인 블로그입니다.
+              오사카에서 생활하면서 방문한 라멘, 우동, 소바 가게들을 기록하는 개인 블로그입니다.
             </p>
             
             <h2 className="text-2xl font-bold mt-8 mb-4">블로그 목적</h2>
             <ul className="space-y-2 text-gray-700">
-              <li>• 방문한 라멘 가게 기록</li>
+              <li>• 방문한 가게 기록</li>
               <li>• 맛과 분위기에 대한 솔직한 후기</li>
-              <li>• 개인적인 라멘 맛집 데이터베이스 구축</li>
+              <li>• 개인적인 맛집 데이터베이스 구축</li>
             </ul>
 
             <h2 className="text-2xl font-bold mt-8 mb-4">평가 기준</h2>
             <ul className="space-y-2 text-gray-700">
-              <li>• 국물의 깊이와 풍미</li>
+              <li>• 국물/육수의 깊이와 풍미</li>
               <li>• 면의 식감과 조리도</li>
               <li>• 토핑의 품질</li>
               <li>• 전체적인 균형과 완성도</li>
