@@ -18,7 +18,7 @@ export default function DisqusComments({ identifier, title, url }: DisqusComment
     if (window.DISQUS) {
       window.DISQUS.reset({
         reload: true,
-        config: function () {
+        config: function (this: any) {
           this.page.identifier = identifier
           this.page.url = url
           this.page.title = title
@@ -26,7 +26,7 @@ export default function DisqusComments({ identifier, title, url }: DisqusComment
       })
     } else {
       // Disqus 설정
-      window.disqus_config = function () {
+      window.disqus_config = function (this: any) {
         this.page.url = url
         this.page.identifier = identifier
         this.page.title = title
@@ -55,8 +55,8 @@ export default function DisqusComments({ identifier, title, url }: DisqusComment
 declare global {
   interface Window {
     DISQUS?: {
-      reset: (options: { reload: boolean; config: () => void }) => void
+      reset: (options: { reload: boolean; config: (this: any) => void }) => void
     }
-    disqus_config?: () => void
+    disqus_config?: (this: any) => void
   }
 }
