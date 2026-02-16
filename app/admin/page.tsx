@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,6 +22,7 @@ async function deleteRamen(formData: FormData) {
   const id = formData.get('id') as string
   try {
     await prisma.ramen.delete({ where: { id } })
+    revalidatePath('/admin')
   } catch (error) {
     console.error('Failed to delete ramen:', error)
   }
@@ -93,11 +96,6 @@ export default async function AdminPage() {
                       <input type="hidden" name="id" value={ramen.id} />
                       <button
                         type="submit"
-                        onClick={(e) => {
-                          if (!confirm('정말 삭제하시겠습니까?')) {
-                            e.preventDefault()
-                          }
-                        }}
                         className="bg-red-600 text-white px-4 py-2 text-sm hover:bg-red-700 transition"
                       >
                         삭제
