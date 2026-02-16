@@ -1,4 +1,4 @@
-import RamenForm from '../_components/RamenForm'
+import RamenForm from '../../_components/RamenForm'
 
 export default function NewRamenPage() {
   return (
