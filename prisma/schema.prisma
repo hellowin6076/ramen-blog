@@ -1,0 +1,72 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["ramen"]
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+model Ramen {
+  id            String    @id @default(cuid())
+  title         String    // 가게 이름
+  slug          String    @unique
+  
+  // 위치 정보
+  location      String    // 주소
+  googleMapsUrl String?   // 구글맵 링크
+  
+  // 카테고리
+  category      String?   // 관리자가 추가한 카테고리 선택
+  
+  // 평가
+  rating        Float?    // 0-5
+  
+  // 맛 평가
+  review        String?   @db.Text
+  
+  // 방문 정보
+  price         Int       // 가격 (엔화)
+  visitDate     DateTime  // 방문일
+  
+  // 기타
+  notes         String?   @db.Text
+  coverImage    String?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  tags          RamenTag[]
+  
+  @@schema("ramen")
+}
+
+model RamenTagMaster {
+  id     String     @id @default(cuid())
+  name   String     @unique
+  ramens RamenTag[]
+  
+  @@map("Tag")
+  @@schema("ramen")
+}
+
+model RamenTag {
+  ramenId String
+  tagId   String
+  ramen   Ramen          @relation(fields: [ramenId], references: [id], onDelete: Cascade)
+  tag     RamenTagMaster @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([ramenId, tagId])
+  @@schema("ramen")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  
+  @@schema("ramen")
+}
