@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#FF6B35"/>
+  
+  <!-- Bowl (bottom part of L) -->
+  <path d="M 16 42 Q 16 50 24 52 L 40 52 Q 48 50 48 42 L 48 38 L 16 38 Z" fill="#FFF" opacity="0.95"/>
+  <ellipse cx="32" cy="38" rx="16" ry="3" fill="#FFE5D9" opacity="0.6"/>
+  
+  <!-- Chopsticks crossing L -->
+  <line x1="20" y1="20" x2="30" y2="36" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+  <line x1="26" y1="18" x2="36" y2="34" stroke="#A0522D" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Letter L -->
+  <path d="M 18 14 L 18 44 L 46 44" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Steam waves -->
+  <path d="M 24 10 Q 26 8 28 10" fill="none" stroke="#FFE5D9" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+  <path d="M 32 8 Q 34 6 36 8" fill="none" stroke="#FFE5D9" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+  <path d="M 40 10 Q 42 8 44 10" fill="none" stroke="#FFE5D9" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+  
+  <!-- Noodle accent in bowl -->
+  <path d="M 22 42 Q 24 44 26 42 Q 28 40 30 42 Q 32 44 34 42" fill="none" stroke="#FFD93D" stroke-width="1.5" opacity="0.5"/>
+</svg>
