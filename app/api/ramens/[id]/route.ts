@@ -12,11 +12,12 @@ function slugify(text: string): string {
 // GET - 특정 라멘 조회
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const ramen = await prisma.ramen.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         tags: {
           include: {
@@ -40,9 +41,10 @@ export async function GET(
 // PUT - 라멘 수정
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const body = await request.json()
     const {
       title,
@@ -60,7 +62,7 @@ export async function PUT(
 
     // 기존 라멘 확인
     const existingRamen = await prisma.ramen.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!existingRamen) {
@@ -72,7 +74,7 @@ export async function PUT(
     if (title !== existingRamen.title) {
       slug = slugify(title)
       let counter = 1
-      while (await prisma.ramen.findFirst({ where: { slug, NOT: { id: params.id } } })) {
+      while (await prisma.ramen.findFirst({ where: { slug, NOT: { id } } })) {
         slug = `${slugify(title)}-${counter}`
         counter++
       }
@@ -80,7 +82,7 @@ export async function PUT(
 
     // 라멘 업데이트
     const ramen = await prisma.ramen.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title,
         slug,
@@ -98,7 +100,7 @@ export async function PUT(
 
     // 기존 태그 삭제
     await prisma.ramenTag.deleteMany({
-      where: { ramenId: params.id },
+      where: { ramenId: id },
     })
 
     // 새 태그 추가
@@ -133,11 +135,12 @@ export async function PUT(
 // DELETE - 라멘 삭제
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     await prisma.ramen.delete({
-      where: { id: params.id },
+      where: { id },
     })
     return NextResponse.json({ success: true })
   } catch (error) {

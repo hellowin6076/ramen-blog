@@ -28,9 +28,10 @@ async function getRamen(slug: string) {
 export default async function RamenDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const ramen = await getRamen(params.slug)
+  const { slug } = await params
+  const ramen = await getRamen(slug)
 
   if (!ramen) {
     notFound()
