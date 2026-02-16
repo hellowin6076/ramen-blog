@@ -5,6 +5,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'LogRamen - 오사카 라멘, 우동, 소바 기록',
   description: '오사카에서 먹은 라멘, 우동, 소바를 기록하는 블로그',
+  verification: {
+    google: 'Iwb0bx5O6TMuXbAuEcYsFCoCDXEzZqBvxHIMDDcAxws',
+  },
 }
 
 export default function RootLayout({
