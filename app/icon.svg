@@ -2,22 +2,32 @@
   <!-- Background -->
   <rect width="64" height="64" rx="12" fill="#FF6B35"/>
   
-  <!-- Bowl (bottom part of L) -->
-  <path d="M 16 42 Q 16 50 24 52 L 40 52 Q 48 50 48 42 L 48 38 L 16 38 Z" fill="#FFF" opacity="0.95"/>
-  <ellipse cx="32" cy="38" rx="16" ry="3" fill="#FFE5D9" opacity="0.6"/>
+  <!-- Ramen Bowl -->
+  <ellipse cx="32" cy="28" rx="20" ry="4" fill="#D94A2B"/>
+  <path d="M 12 28 L 12 38 Q 12 46 20 48 L 44 48 Q 52 46 52 38 L 52 28 Z" fill="#FFF"/>
+  <ellipse cx="32" cy="28" rx="20" ry="4" fill="#FFE5D9" opacity="0.8"/>
   
-  <!-- Chopsticks crossing L -->
-  <line x1="20" y1="20" x2="30" y2="36" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
-  <line x1="26" y1="18" x2="36" y2="34" stroke="#A0522D" stroke-width="2" stroke-linecap="round"/>
+  <!-- Broth -->
+  <ellipse cx="32" cy="32" rx="18" ry="3" fill="#FFD93D" opacity="0.6"/>
   
-  <!-- Letter L -->
-  <path d="M 18 14 L 18 44 L 46 44" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Noodles -->
+  <path d="M 20 32 Q 22 30 24 32 T 28 32 T 32 32 T 36 32 T 40 32 T 44 32" 
+        fill="none" stroke="#FFF8DC" stroke-width="2" opacity="0.9" stroke-linecap="round"/>
+  <path d="M 22 35 Q 24 33 26 35 T 30 35 T 34 35 T 38 35 T 42 35" 
+        fill="none" stroke="#FFF8DC" stroke-width="2" opacity="0.7" stroke-linecap="round"/>
   
-  <!-- Steam waves -->
-  <path d="M 24 10 Q 26 8 28 10" fill="none" stroke="#FFE5D9" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
-  <path d="M 32 8 Q 34 6 36 8" fill="none" stroke="#FFE5D9" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
-  <path d="M 40 10 Q 42 8 44 10" fill="none" stroke="#FFE5D9" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+  <!-- Chopsticks -->
+  <line x1="36" y1="14" x2="42" y2="40" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="40" y1="12" x2="46" y2="38" stroke="#A0522D" stroke-width="2.5" stroke-linecap="round"/>
   
-  <!-- Noodle accent in bowl -->
-  <path d="M 22 42 Q 24 44 26 42 Q 28 40 30 42 Q 32 44 34 42" fill="none" stroke="#FFD93D" stroke-width="1.5" opacity="0.5"/>
+  <!-- Steam -->
+  <path d="M 20 18 Q 22 15 24 18" fill="none" stroke="#FFE5D9" stroke-width="2" opacity="0.8" stroke-linecap="round"/>
+  <path d="M 28 16 Q 30 13 32 16" fill="none" stroke="#FFE5D9" stroke-width="2" opacity="0.8" stroke-linecap="round"/>
+  <path d="M 36 18 Q 38 15 40 18" fill="none" stroke="#FFE5D9" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+  
+  <!-- Toppings (egg and green onion) -->
+  <circle cx="26" cy="30" r="3" fill="#FFE5A0"/>
+  <circle cx="26" cy="30" r="1.5" fill="#FFB347"/>
+  <rect x="34" y="29" width="6" height="1.5" rx="0.5" fill="#90EE90" opacity="0.8"/>
+  <rect x="35" y="31" width="5" height="1.5" rx="0.5" fill="#90EE90" opacity="0.6"/>
 </svg>
