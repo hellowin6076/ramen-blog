@@ -12,6 +12,7 @@ interface RamenTag {
 interface Ramen {
   id: string
   title: string
+  titleJa: string | null
   slug: string
   location: string
   googleMapsUrl: string | null
@@ -66,9 +67,14 @@ export default async function RamenDetailPage({
         {/* Title and Rating */}
         <div className="mb-8">
           <div className="flex items-start justify-between gap-4 mb-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold flex-1">
-              {ramen.title}
-            </h1>
+            <div className="flex-1">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+                {ramen.title}
+              </h1>
+              {ramen.titleJa && (
+                <p className="text-lg text-gray-500 mt-1">{ramen.titleJa}</p>
+              )}
+            </div>
             {ramen.rating && (
               <div className="flex items-center gap-2 text-xl font-bold">
                 <span className="text-yellow-500">★</span>

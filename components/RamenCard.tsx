@@ -5,6 +5,7 @@ interface RamenCardProps {
   ramen: {
     id: string
     title: string
+    titleJa: string | null
     slug: string
     coverImage: string | null
     category: string | null
@@ -32,8 +33,13 @@ export default function RamenCard({ ramen }: RamenCardProps) {
         )}
         
         <div className="p-4 sm:p-6">
-          <div className="flex items-start justify-between gap-4 mb-3">
-            <h2 className="text-xl sm:text-2xl font-bold flex-1">{ramen.title}</h2>
+          <div className="flex items-start justify-between gap-4 mb-1">
+            <div className="flex-1">
+              <h2 className="text-xl sm:text-2xl font-bold">{ramen.title}</h2>
+              {ramen.titleJa && (
+                <p className="text-sm text-gray-500 mt-0.5">{ramen.titleJa}</p>
+              )}
+            </div>
             {ramen.rating && (
               <div className="flex items-center gap-1 text-sm font-semibold">
                 <span className="text-yellow-500">★</span>
@@ -42,7 +48,7 @@ export default function RamenCard({ ramen }: RamenCardProps) {
             )}
           </div>
 
-          <div className="space-y-2 text-sm text-gray-600 mb-4">
+          <div className="space-y-2 text-sm text-gray-600 mb-4 mt-3">
             <div className="flex items-start gap-2">
               <span>📍</span>
               <span className="flex-1">{ramen.location}</span>

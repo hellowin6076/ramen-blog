@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const {
       title,
+      titleJa,
       location,
       googleMapsUrl,
       category,
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
     const ramen = await prisma.ramen.create({
       data: {
         title,
+        titleJa,
         slug,
         location,
         googleMapsUrl,

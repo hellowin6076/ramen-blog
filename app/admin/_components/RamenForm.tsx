@@ -22,11 +22,11 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
   const [fetching, setFetching] = useState(false)
   const [uploading, setUploading] = useState(false)
   
-  // 동적 카테고리
   const [categories, setCategories] = useState<Category[]>([])
   const [loadingCategories, setLoadingCategories] = useState(true)
 
   const [title, setTitle] = useState('')
+  const [titleJa, setTitleJa] = useState('')
   const [location, setLocation] = useState('')
   const [googleMapsUrl, setGoogleMapsUrl] = useState('')
   const [category, setCategory] = useState('')
@@ -40,7 +40,6 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
   const [tags, setTags] = useState<string[]>([])
   const [tagInput, setTagInput] = useState('')
 
-  // 카테고리 불러오기
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -57,7 +56,6 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
     fetchCategories()
   }, [])
 
-  // 수정 모드일 때 데이터 불러오기
   useEffect(() => {
     if (isEditMode && ramenId) {
       setFetching(true)
@@ -65,6 +63,7 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
         .then((res) => res.json())
         .then((data) => {
           setTitle(data.title)
+          setTitleJa(data.titleJa || '')
           setLocation(data.location)
           setGoogleMapsUrl(data.googleMapsUrl || '')
           setCategory(data.category || '')
@@ -90,7 +89,6 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
 
     setUploading(true)
     try {
-      // 이미지 압축
       const options = {
         maxSizeMB: 1,
         maxWidthOrHeight: 1920,
@@ -98,7 +96,6 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
       }
       const compressedFile = await imageCompression(file, options)
 
-      // Vercel Blob에 업로드
       const uploadFormData = new FormData()
       uploadFormData.append('file', compressedFile)
       const response = await fetch('/api/upload', {
@@ -154,6 +151,7 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
 
     const payload = {
       title: title.trim(),
+      titleJa: titleJa.trim() || null,
       location: location.trim(),
       googleMapsUrl: googleMapsUrl.trim() || null,
       category: category || null,
@@ -202,10 +200,10 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6 bg-white space-y-6">
-      {/* 가게 이름 */}
+      {/* 가게 이름 (한국어) */}
       <div>
         <label className="block text-sm font-semibold mb-2">
-          가게 이름 <span className="text-red-600">*</span>
+          가게 이름 (한국어) <span className="text-red-600">*</span>
         </label>
         <input
           type="text"
@@ -214,6 +212,20 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
           className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
           placeholder="이치란 난바점"
           required
+        />
+      </div>
+
+      {/* 가게 이름 (일본어) */}
+      <div>
+        <label className="block text-sm font-semibold mb-2">
+          가게 이름 (일본어)
+        </label>
+        <input
+          type="text"
+          value={titleJa}
+          onChange={(e) => setTitleJa(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
+          placeholder="一蘭 難波店"
         />
       </div>
 

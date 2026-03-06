@@ -11,7 +11,8 @@ generator client {
 
 model Ramen {
   id            String    @id @default(cuid())
-  title         String    // 가게 이름
+  title         String    // 가게 이름 (한국어)
+  titleJa       String?   // 가게 이름 (일본어)
   slug          String    @unique
   
   // 위치 정보

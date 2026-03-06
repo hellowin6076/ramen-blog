@@ -26,11 +26,9 @@ export async function GET(
         },
       },
     })
-
     if (!ramen) {
       return NextResponse.json({ error: 'Ramen not found' }, { status: 404 })
     }
-
     return NextResponse.json(ramen)
   } catch (error) {
     console.error('Failed to fetch ramen:', error)
@@ -48,6 +46,7 @@ export async function PUT(
     const body = await request.json()
     const {
       title,
+      titleJa,
       location,
       googleMapsUrl,
       category,
@@ -60,11 +59,9 @@ export async function PUT(
       tags,
     } = body
 
-    // 기존 라멘 확인
     const existingRamen = await prisma.ramen.findUnique({
       where: { id },
     })
-
     if (!existingRamen) {
       return NextResponse.json({ error: 'Ramen not found' }, { status: 404 })
     }
@@ -80,11 +77,11 @@ export async function PUT(
       }
     }
 
-    // 라멘 업데이트
     const ramen = await prisma.ramen.update({
       where: { id },
       data: {
         title,
+        titleJa,
         slug,
         location,
         googleMapsUrl,
@@ -109,13 +106,11 @@ export async function PUT(
         let tag = await prisma.ramenTagMaster.findUnique({
           where: { name: tagName },
         })
-
         if (!tag) {
           tag = await prisma.ramenTagMaster.create({
             data: { name: tagName },
           })
         }
-
         await prisma.ramenTag.create({
           data: {
             ramenId: ramen.id,
