@@ -35,7 +35,7 @@ export default async function RamenDetailPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const ramen = await getRamen(slug)
+  const ramen = await getRamen(decodeURIComponent(slug))
 
   if (!ramen) {
     notFound()
