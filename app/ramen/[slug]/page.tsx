@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import DisqusComments from '@/components/DisqusComments'
+import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,35 +10,19 @@ interface RamenTag {
   tag: { name: string }
 }
 
-interface Ramen {
-  id: string
-  title: string
-  titleJa: string | null
-  slug: string
-  location: string
-  googleMapsUrl: string | null
-  category: string | null
-  rating: number | null
-  review: string | null
-  price: number
-  visitDate: string
-  notes: string | null
-  coverImage: string | null
-  tags: RamenTag[]
-}
-
 async function getRamen(slug: string) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const decodedSlug = decodeURIComponent(slug)
-
-    const res = await fetch(`${baseUrl}/api/ramens`, {
-      cache: 'no-store',
+    const ramen = await prisma.ramen.findUnique({
+      where: { slug },
+      include: {
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+      },
     })
-    if (!res.ok) return null
-
-    const ramens = await res.json()
-    return ramens.find((r: Ramen) => r.slug === decodedSlug) || null
+    return ramen
   } catch (error) {
     console.error('Failed to fetch ramen:', error)
     return null
@@ -50,7 +35,7 @@ export default async function RamenDetailPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const ramen: Ramen | null = await getRamen(slug)
+  const ramen = await getRamen(slug)
 
   if (!ramen) {
     notFound()
