@@ -99,9 +99,11 @@ export default function RamenForm({ ramenId }: RamenFormProps) {
       const compressedFile = await imageCompression(file, options)
 
       // Vercel Blob에 업로드
-      const response = await fetch(`/api/upload?filename=${compressedFile.name}`, {
+      const uploadFormData = new FormData()
+      uploadFormData.append('file', compressedFile)
+      const response = await fetch('/api/upload', {
         method: 'POST',
-        body: compressedFile,
+        body: uploadFormData,
       })
 
       const data = await response.json()

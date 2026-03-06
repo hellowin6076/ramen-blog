@@ -2,23 +2,21 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import DisqusComments from '@/components/DisqusComments'
-import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
 
 async function getRamen(slug: string) {
   try {
-    const ramen = await prisma.ramen.findUnique({
-      where: { slug },
-      include: {
-        tags: {
-          include: {
-            tag: true,
-          },
-        },
-      },
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const decodedSlug = decodeURIComponent(slug)
+
+    const res = await fetch(`${baseUrl}/api/ramens`, {
+      cache: 'no-store',
     })
-    return ramen
+    if (!res.ok) return null
+
+    const ramens = await res.json()
+    return ramens.find((r: any) => r.slug === decodedSlug) || null
   } catch (error) {
     console.error('Failed to fetch ramen:', error)
     return null
